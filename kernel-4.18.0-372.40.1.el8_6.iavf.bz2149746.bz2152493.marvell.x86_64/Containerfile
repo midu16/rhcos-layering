@@ -1,0 +1,33 @@
+FROM quay.io/midu/side-kernel-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64:latest as kernel-query
+#We can't use the `uname -r` as it will pick up the host kernel version
+RUN rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}' > /kernel-version.txt
+
+
+FROM registry.access.redhat.com/ubi8/ubi:latest as builder
+COPY --from=kernel-query /kernel-version.txt /kernel-version.txt
+
+
+RUN curl -O -L https://kernel-*-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64.rpm
+RUN dnf install -y jq dkms gcc make autoconf automake libtool rpm-build libtirpc-devel libblkid-devel \
+    libuuid-devel libudev-devel openssl-devel zlib-devel libaio-devel libattr-devel elfutils-libelf-devel \
+    kernel-$(cat /kernel-version.txt).rpm kernel-modules-$(cat /kernel-version.txt).rpm kernel-modules-extra-$(cat /kernel-version.txt).rpm kernel-devel-$(cat /kernel-version.txt).rpm \
+    python3 python3-devel python3-setuptools python3-cffi libffi-devel git ncompress libcurl-devel
+WORKDIR /
+
+# Uses project_id from: https://release-monitoring.org/project/11706/
+# This is an example using zfs
+RUN curl "https://release-monitoring.org/api/v2/versions/?project_id=11706" | jq --raw-output '.stable_versions[0]' >> /zfs_version.txt
+RUN curl -L -O https://github.com/openzfs/zfs/releases/download/zfs-$(cat /zfs_version.txt)/zfs-$(cat /zfs_version.txt).tar.gz && \
+    tar xzf zfs-$(cat /zfs_version.txt).tar.gz && mv zfs-$(cat /zfs_version.txt) zfs
+WORKDIR /zfs
+RUN ./configure -with-linux=/usr/src/kernels/$(cat /kernel-version.txt)/ -with-linux-obj=/usr/src/kernels/$(cat /kernel-version.txt)/ \
+    && make -j1 rpm-utils rpm-kmod
+
+FROM quay.io/midu/side-kernel-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64:latest
+COPY --from=builder /zfs/*.rpm /
+# For the example we install all RPMS (debug, test, etc).
+# In real use cases probably just want the module rpm.
+RUN rpm-ostree install /*.$(uname -p).rpm && \
+    # we don't want any files on /var
+    rm -rf /var/lib/pcp && \
+    ostree container commit 

@@ -1,0 +1,9 @@
+# Using a 4.12.0 image
+FROM quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:2ee54e681a8810354d06c735e07fd6d8bb502bdbd19ec2c5cc56f10b1d921337
+RUN rpm-ostree cliwrap install-to-root /
+#Install hotfix rpm
+RUN rpm-ostree override replace https://people.redhat.com/midu/.kernel-4.18.0-372.40.1.x86_64/kernel-4.18.0-372.40.1.el8_6.x86_64.rpm \
+    https://people.redhat.com/midu/.kernel-4.18.0-372.40.1.x86_64/kernel-core-4.18.0-372.40.1.el8_6.x86_64.rpm \
+    https://people.redhat.com/midu/.kernel-4.18.0-372.40.1.x86_64/kernel-modules-4.18.0-372.40.1.el8_6.x86_64.rpm \
+    https://people.redhat.com/midu/.kernel-4.18.0-372.40.1.x86_64/kernel-modules-extra-4.18.0-372.40.1.el8_6.x86_64.rpm && \
+    rpm-ostree cleanup -m 
