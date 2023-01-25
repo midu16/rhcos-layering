@@ -7,4 +7,3 @@ RUN rpm-ostree override replace https://people.redhat.com/midu/kernel-4.18.0-372
     https://people.redhat.com/midu/kernel-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64/kernel-modules-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64.rpm \
     https://people.redhat.com/midu/kernel-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64/kernel-modules-extra-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64.rpm && \
     rpm-ostree cleanup -m 
-EOF
