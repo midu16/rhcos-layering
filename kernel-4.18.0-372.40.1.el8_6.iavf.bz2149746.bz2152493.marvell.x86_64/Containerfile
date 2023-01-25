@@ -3,7 +3,7 @@ FROM quay.io/midu/side-kernel-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86
 RUN rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}' > /kernel-version.txt
 
 
-FROM registry.access.redhat.com/ubi8/ubi:latest as builder
+FROM quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:b53883ca2bac5925857148c4a1abc300ced96c222498e3bc134fe7ce3a1dd404 as builder
 COPY --from=kernel-query /kernel-version.txt /kernel-version.txt
 
 # obtain the files to the working directory
