@@ -37,3 +37,4 @@ RUN make install KVER=$(rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{AR
 
 #clean-up, delete the module build dir.
 RUN rm -rf /simple-kmod && ostree container commit
+
