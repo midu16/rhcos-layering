@@ -6,4 +6,6 @@ RUN rpm-ostree override replace https://people.redhat.com/midu/kernel-4.18.0-372
     https://people.redhat.com/midu/kernel-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64/kernel-core-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64.rpm \
     https://people.redhat.com/midu/kernel-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64/kernel-modules-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64.rpm \
     https://people.redhat.com/midu/kernel-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64/kernel-modules-extra-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64.rpm && \
-    rpm-ostree cleanup -m 
+    rpm-ostree cleanup -m && \
+    cd /usr/lib/modules/4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64/ && sed -i 's/\/boot\///g' .vmlinuz.hmac && \
+    ostree container commit
