@@ -1,12 +1,14 @@
 # Using a 4.12.0 image
-FROM quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:2ee54e681a8810354d06c735e07fd6d8bb502bdbd19ec2c5cc56f10b1d921337
+FROM quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:6db665511f305ef230a2c752d836fe073e80550dc21cede3c55cf44db01db365
 RUN rpm-ostree cliwrap install-to-root /
-#Install hotfix rpm
-RUN rpm-ostree override replace https://people.redhat.com/midu/kernel-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64/kernel-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64.rpm \
+# Env
+ENV KERNEL_RPM="https://people.redhat.com/midu/kernel-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64/kernel-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64.rpm \
     https://people.redhat.com/midu/kernel-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64/kernel-core-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64.rpm \
     https://people.redhat.com/midu/kernel-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64/kernel-modules-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64.rpm \
     https://people.redhat.com/midu/kernel-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64/kernel-modules-extra-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64.rpm \
-    https://people.redhat.com/midu/kernel-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64/kernel-headers-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64.rpm && \
+    https://people.redhat.com/midu/kernel-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64/kernel-headers-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64.rpm"
+# Install hotfix rpm
+RUN rpm-ostree override replace ${KERNEL_RPM} && \
     rpm-ostree cleanup -m && \
     cd /usr/lib/modules/4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64/ && sed -i 's/\/boot\///g' .vmlinuz.hmac && \
     ostree container commit
