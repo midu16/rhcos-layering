@@ -12,8 +12,13 @@ curl -s https://mirror.openshift.com/pub/openshift-v4/clients/ocp/$OCP_VERSION/r
 ## How to build the container-base images:
 
 ```bash
-podman build -t runc-patch:latest . --no-cache
+$ export OCP_VERSION="4.12.0"
+$ VARIABLE_NAME=$(curl -s https://mirror.openshift.com/pub/openshift-v4/clients/ocp/$OCP_VERSION/release.txt | grep -m1 'rhel-coreos-8' | awk -F ' ' '{print $2}')
+$ podman build -t runc-patch:latest . --no-cache --build-arg rhel_coreos_release=${VARIABLE_NAME} 
+$ podman tag localhost/runc-patch:latest quay.io/midu/runc-patch:latest
+$ podman push quay.io/midu/runc-patch:latest
 ```
+! Note: Please, be aware that you can push this image to your internal offline registry.
 
 ## Publically available image:
 
