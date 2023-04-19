@@ -1,6 +1,6 @@
 # How to build the runc container-base image patch
 
-`./Containerfile` contains the structure for 4.12.0 only. This needs to be updated according to each OCP release version as follows:
+This needs to be updated according to each OCP release version as follows:
 
 ```bash
 export OCP_VERSION="4.12.0"
