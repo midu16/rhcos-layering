@@ -1,0 +1,10 @@
+# Using a 4.12.0 image
+# export OCP_VERSION="4.12.0"
+# curl -s https://mirror.openshift.com/pub/openshift-v4/clients/ocp/$OCP_VERSION/release.txt | grep -m1 'rhel-coreos-8' | awk -F ' ' '{print $2}'
+FROM quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:6db665511f305ef230a2c752d836fe073e80550dc21cede3c55cf44db01db365
+
+# COPY runc-1.1.6-2.rhaos4.12.el8.x86_64.rpm to the layer
+COPY runc-1.1.6-2.rhaos4.12.el8.x86_64.rpm /runc-1.1.6-2.rhaos4.12.el8.x86_64.rpm
+RUN rpm-ostree override replace /runc-1.1.6-2.rhaos4.12.el8.x86_64.rpm && \
+    rpm-ostree cleanup -m && \
+    ostree container commit
