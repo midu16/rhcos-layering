@@ -5,4 +5,4 @@ metadata:
     machineconfiguration.openshift.io/role: worker 
   name: runc-patch
 spec:
-  osImageURL: quay.io/midu/runc-patch:latest
+  osImageURL: quay.io/midu/runc-patch:4.12.0
