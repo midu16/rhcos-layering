@@ -1,5 +1,8 @@
 # Using a 4.12.0 image
-FROM quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:6db665511f305ef230a2c752d836fe073e80550dc21cede3c55cf44db01db365
+# export OCP_VERSION="4.12.0"
+# curl -s https://mirror.openshift.com/pub/openshift-v4/clients/ocp/$OCP_VERSION/release.txt | grep -m1 'rhel-coreos-8' | awk -F ' ' '{print $2}'
+ARG rhel_coreos_release
+FROM ${rhel_coreos_release}
 RUN rpm-ostree cliwrap install-to-root /
 # Env
 ENV KERNEL_RPM="https://people.redhat.com/midu/kernel-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64/kernel-4.18.0-372.40.1.el8_6.iavf.bz2149746.bz2152493.x86_64.rpm \
