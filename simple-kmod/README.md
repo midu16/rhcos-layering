@@ -61,11 +61,11 @@ In this section we are going to discuss on how to [build][dkt-simple-kmod] your 
 
 ## Summary 
 
-| Out-Of-Tree method  | Additional resource consumption      | Day1  | Upgrade rollout  |   |
-|---------------------|--------------------------------------|---|---|---|
-| RHCOS Layering      | -                                    |   |   |   |
-| DriverToolKit       | yes                                  |   |   |   |
-| KMM Operator        | yes                                  |   |   |   |
+| Out-Of-Tree method  | Additional resource consumption      | Day1  | Day2 | Upgrade rollout  | Resource consumption |
+|---------------------|--------------------------------------|---|---|---| --- |
+| RHCOS Layering      | -                                    |   |   |   |     |
+| DriverToolKit       | yes                                  |   |   |   |     |
+| KMM Operator        | yes                                  |   |   |   |     |
 
 ## Resources
 
