@@ -9,6 +9,13 @@ In this section we are going to show-case :
     - as day2 operation;
     - as day1 operation.
 
+## Prerequisites 
+
+In the implementation we are going to use:
+- The [simple-kmod][simple-kmod-link] as a reference driver. This can be replaced with any other driver if the use-case is requiring.
+- OCPv4.12.0+
+- SNO (SingleNodeOpenShift)
+- KMMv1.0.0 
 
 ## Resources
 

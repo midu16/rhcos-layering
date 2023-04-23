@@ -14,7 +14,7 @@ In this section we are going to compare DriverToolKit, RHCOS-Layering and Kernel
 
 In the implementation we are going to use:
 - The [simple-kmod][simple-kmod-link] as a reference driver. This can be replaced with any other driver if the use-case is requiring.
-- OCPv4.12.0 
+- OCPv4.12.0+
 - SNO (SingleNodeOpenShift)
 
 [simple-kmod-link]: https://github.com/openshift-psap/simple-kmod.git
