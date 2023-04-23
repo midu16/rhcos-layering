@@ -40,15 +40,32 @@ In this section we are going to discuss on how to [build][layering-simple-kmod] 
 
 The [Containerfile][layering-simple-kmod-containerfile] its reffering to two main container base images in your OCP base release, those will be used to produce your custom release which contains the `out-of-tree` kernel driver.
 
-
-
 [layering-simple-kmod]: ./layering-simple-kmod/README.md
 [layering-simple-kmod-containerfile]: ./layering-simple-kmod/Containerfile
 
+Depending on what nodes of your cluster you have applied the layer image to, OpenShift Container Platform no longer automatically updates the node pool that uses the custom layered image. You become responsible to manually update your nodes as appropriate.
+To update a node that uses a custom layered image, follow these general steps:
+- The cluster automatically upgrades to version x.y.z+1, except for the nodes that use the custom layered image. It is not required to do a z-stream upgrade in the scenario that all your OpenShift Container Platform nodes are using the RHCOS layer. 
+- You could then create a new Containerfile that references the updated OpenShift Container Platform image and the RPM that you had previously applied.
+- Create a new machine config that points to the updated custom layered image.
+
 ### DriverToolKit
 
+In this section we are going to discuss on how to [build][dkt-simple-kmod] your `out-of-tree` kernel driver using DriverToolKit method, what are the requirements in order to achieve this and what is the system resources consumption.
+
+
+[dkt-simple-kmod]: ./dtk-simple-kmod/README.md
 ### KMM-Operator
 
+
+
+## Summary 
+
+| Out-Of-Tree method  | Additional resource consumption      | Day1  |   |   |
+|---------------------|--------------------------------------|---|---|---|
+| RHCOS Layering      | -                                    |   |   |   |
+| DriverToolKit       | yes                                  |   |   |   |
+| KMM Operator        |                                      |   |   |   |
 
 ## Resources
 
