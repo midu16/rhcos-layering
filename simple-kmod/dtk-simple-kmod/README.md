@@ -95,6 +95,9 @@ imagestream.image.openshift.io/simple-kmod-driver-container   image-registry.ope
     ```bash
     $ oc create -f 1000-drivercontainer.yaml
     ```
+! Note: the `container-base-image` used in this demo was made publically available in the following [repo][simple-kmod-driver-container-image].
+
+[simple-kmod-driver-container-image]: quay.io/midu/simple-kmod-driver-container:4.12.11
 
 - Validating that the `out-of-tree` kernel driver:
 
@@ -171,7 +174,6 @@ The following metric has been used in Prometheus: `namespace:container_memory_us
 The following metric has been used in Prometheus: `namespace:container_cpu_usage:sum{namespace="simple-kmod-demo"}`
 
 ![namespace-cpu-usage](https://github.com/midu16/rhcos-layering/blob/d475e9f977c8d45b3046718734583475b2a47e1e/simple-kmod/dtk-simple-kmod/screen/Screenshot%202023-04-23%20at%2007-01-26%20Metrics%20%C2%B7%20Red%20Hat%20OpenShift.png)
-
 
 
 ## Resources
