@@ -170,7 +170,7 @@ The following metric has been used in Prometheus: `namespace:container_memory_us
 
 The following metric has been used in Prometheus: `namespace:container_cpu_usage:sum{namespace="simple-kmod-demo"}`
 
-![namespacecpuusage]: (./screen/Screenshot%202023-04-23%20at%2007-01-26%20Metrics%20%C2%B7%20Red%20Hat%20OpenShift.png)
+![namespacecpuusage]: (./screen/Screenshot\ 2023-04-23\ at\ 07-01-26\ Metrics\ ·\ Red\ Hat\ OpenShift.png)
 
 ## Resources
 
