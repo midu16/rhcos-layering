@@ -2,7 +2,7 @@
 
 ## Purpose 
 
-In this section we are going to compare DriverToolKit, RHCOS-Layering and KernelModuleManager-Operator from the following perspectives:
+In this section we are going to compare DriverToolKit, RHCOS-Layering and KernelModuleManagement-Operator from the following perspectives:
 
 - Features
 - Cluster resource consumptions
@@ -47,7 +47,7 @@ The [Containerfile][layering-simple-kmod-containerfile] its reffering to two mai
 
 ### DriverToolKit
 
-### KMM
+### KMM-Operator
 
 
 ## Resources
