@@ -4,7 +4,7 @@ metadata:
   labels:
     app: simple-kmod-driver-container
   name: simple-kmod-driver-container
-  namespace: simple-kmod-demo
+  namespace: simple-kmod
 spec: {}
 ---
 apiVersion: build.openshift.io/v1
@@ -13,7 +13,7 @@ metadata:
   labels:
     app: simple-kmod-driver-build
   name: simple-kmod-driver-build
-  namespace: simple-kmod-demo
+  namespace: simple-kmod
 spec:
   nodeSelector:
     node-role.kubernetes.io/worker: ""
