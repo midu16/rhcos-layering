@@ -164,13 +164,13 @@ imagestream.image.openshift.io/simple-kmod-driver-container   default-route-open
 
 The following metric has been used in Prometheus: `namespace:container_memory_usage_bytes:sum{namespace="simple-kmod-demo"}`
 
-![namespace-memory-usage](simple-kmod/dtk-simple-kmod/screen/Screenshot 2023-04-23 at 07-02-14 Metrics · Red Hat OpenShift.png)
+![namespace-memory-usage](https://github.com/midu16/rhcos-layering/blob/d475e9f977c8d45b3046718734583475b2a47e1e/simple-kmod/dtk-simple-kmod/screen/Screenshot%202023-04-23%20at%2007-02-14%20Metrics%20%C2%B7%20Red%20Hat%20OpenShift.png)
 
 - CPU usage by the `nammespace` resource created by DTK:
 
 The following metric has been used in Prometheus: `namespace:container_cpu_usage:sum{namespace="simple-kmod-demo"}`
 
-![namespace-cpu-usage](simple-kmod/dtk-simple-kmod/screen/Screenshot 2023-04-23 at 07-01-26 Metrics · Red Hat OpenShift.png)
+![namespace-cpu-usage](https://github.com/midu16/rhcos-layering/blob/d475e9f977c8d45b3046718734583475b2a47e1e/simple-kmod/dtk-simple-kmod/screen/Screenshot%202023-04-23%20at%2007-01-26%20Metrics%20%C2%B7%20Red%20Hat%20OpenShift.png)
 
 
 
