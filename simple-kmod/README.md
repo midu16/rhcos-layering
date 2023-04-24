@@ -57,6 +57,9 @@ In this section we are going to discuss on how to [build][dkt-simple-kmod] your 
 [dkt-simple-kmod]: ./dtk-simple-kmod/README.md
 ### KMM-Operator
 
+In this section we are going to discuss on how to [build][kmm-simple-kmod] your `out-of-tree` kernel driver using KMM-Operator method, what are the requirements in order to achieve this and what is the system resources consumption.
+
+[kmm-simple-kmod]: ./kmm-simple-kmod/README.md
 
 
 ## Summary 
