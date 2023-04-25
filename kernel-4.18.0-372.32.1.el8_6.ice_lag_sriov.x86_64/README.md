@@ -9,3 +9,17 @@ $ podman build -t kernel-4.18.0-372.32.1.el8_6.ice_lag_sriov.x86_64:4.12.8 --no-
 $ podman tag localhost/kernel-4.18.0-372.32.1.el8_6.ice_lag_sriov.x86_64:4.12.8 quay.io/midu/kernel-4.18.0-372.32.1.el8_6.ice_lag_sriov.x86_64:4.12.8
 $ podman push quay.io/midu/kernel-4.18.0-372.32.1.el8_6.ice_lag_sriov.x86_64:4.12.8
 ```
+
+## How to apply the kernel to OCP using MachineConfig:
+
+- for `master` nodes:
+
+```bash
+$ oc create -f 99-kernel-4.18.0-372.32.1.el8_6.ice_lag_sriov-master.yaml
+```
+
+- for `worker` nodes:
+
+```bash
+$ oc create -f 99-kernel-4.18.0-372.32.1.el8_6.ice_lag_sriov-worker.yaml
+```
