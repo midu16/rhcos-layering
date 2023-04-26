@@ -1,0 +1,8 @@
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: master 
+  name: kernel-4.18.0-372.49.1.el8_6.ice_lag_sriov.x86_64
+spec:
+  osImageURL: quay.io/midu/kernel-4.18.0-372.49.1.el8_6.ice_lag_sriov.x86_64:4.12.8
