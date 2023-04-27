@@ -64,11 +64,11 @@ In this section we are going to discuss on how to [build][kmm-simple-kmod] your 
 
 ## Summary 
 
-| Out-Of-Tree method  | Additional resource consumption      | Day1  | Day2 | Upgrade rollout  | Resource consumption |
-|---------------------|--------------------------------------|---|---|---| --- |
-| RHCOS Layering      | -                                    |   |   |   |     |
-| DriverToolKit       | yes                                  |   |   |   |     |
-| KMM Operator        | yes                                  |   |   |   |     |
+| Out-Of-Tree method  | Additional resource consumption      | Day1  | Day2 | Upgrade rollout  | Memory consumption [B] |
+|---------------------|--------------------------------------|-------|------|------------------| ---------------------- |
+| RHCOS Layering      | -                                    | yes   | yes  |  no              |  #N/A                  |
+| DriverToolKit       | yes                                  | yes   | yes  |  yes             |  800k - 1M             |
+| KMM Operator        | yes                                  | yes   | yes  |  yes             |                        |
 
 ## Resources
 
