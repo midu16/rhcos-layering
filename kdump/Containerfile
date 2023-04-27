@@ -1,0 +1,11 @@
+# Using a 4.12.2 image
+# export OCP_VERSION="4.12.2"
+# curl -s https://mirror.openshift.com/pub/openshift-v4/clients/ocp/$OCP_VERSION/release.txt | grep -m1 'rhel-coreos-8' | awk -F ' ' '{print $2}'
+ARG rhel_coreos_release
+FROM ${rhel_coreos_release}
+
+# COPY runc-1.1.6-2.rhaos4.12.el8.x86_64.rpm to the layer
+COPY selinux-policy-3.14.3-95.el8_6.8.noarch.rpm /selinux-policy-3.14.3-95.el8_6.8.noarch.rpm
+RUN rpm-ostree override replace /selinux-policy-3.14.3-95.el8_6.8.noarch.rpm && \
+    rpm-ostree cleanup -m && \
+    ostree container commit
