@@ -14,6 +14,6 @@ COPY systemd-libs-239-58.el8_6.11.x86_64.rpm /systemd-libs-239-58.el8_6.11.x86_6
 COPY systemd-pam-239-58.el8_6.11.x86_64.rpm /systemd-pam-239-58.el8_6.11.x86_64.rpm
 COPY systemd-udev-239-58.el8_6.11.x86_64.rpm /systemd-udev-239-58.el8_6.11.x86_64.rpm
 RUN mkdir -p /etc/selinux/policy/
-RUN rpm-ostree override replace /selinux-policy-3.14.3-95.el8_6.8.noarch.rpm /selinux-policy-targeted-3.14.3-95.el8_6.8.noarch.rpm /systemd-239-58.el8_6.11.x86_64.rpm /systemd-devel-239-58.el8_6.11.x86_64.rpm /systemd-journal-remote-239-58.el8_6.11.x86_64.rpm /systemd-libs-239-58.el8_6.11.x86_64.rpm /systemd-pam-239-58.el8_6.11.x86_64.rpm /systemd-udev-239-58.el8_6.11.x86_64.rpm && \
+RUN rpm-ostree override replace /systemd-239-58.el8_6.11.x86_64.rpm /systemd-devel-239-58.el8_6.11.x86_64.rpm /systemd-journal-remote-239-58.el8_6.11.x86_64.rpm /systemd-libs-239-58.el8_6.11.x86_64.rpm /systemd-pam-239-58.el8_6.11.x86_64.rpm /systemd-udev-239-58.el8_6.11.x86_64.rpm /selinux-policy-3.14.3-95.el8_6.8.noarch.rpm /selinux-policy-targeted-3.14.3-95.el8_6.8.noarch.rpm && \
     rpm-ostree cleanup -m && mv /var/lib/selinux/targeted/ /etc/selinux/policy/targeted/ && \
     ostree container commit
