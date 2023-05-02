@@ -15,5 +15,5 @@ COPY systemd-pam-239-58.el8_6.12.x86_64.rpm /systemd-pam-239-58.el8_6.12.x86_64.
 COPY systemd-udev-239-58.el8_6.12.x86_64.rpm /systemd-udev-239-58.el8_6.12.x86_64.rpm
 RUN mkdir -p /etc/selinux/policy/
 RUN rpm-ostree override replace /systemd-239-58.el8_6.12.x86_64.rpm /systemd-devel-239-58.el8_6.12.x86_64.rpm /systemd-journal-remote-239-58.el8_6.12.x86_64.rpm /systemd-libs-239-58.el8_6.12.x86_64.rpm /systemd-pam-239-58.el8_6.12.x86_64.rpm /systemd-udev-239-58.el8_6.12.x86_64.rpm /selinux-policy-3.14.3-95.el8_6.8.noarch.rpm /selinux-policy-targeted-3.14.3-95.el8_6.8.noarch.rpm && \
-    rpm-ostree cleanup -m && mv /var/lib/selinux/targeted/ /etc/selinux/policy/targeted/ && rm -rf /var/* && systemctl enable systemd-pstore.service\
+    rpm-ostree cleanup -m && mv /var/lib/selinux/targeted/ /etc/selinux/policy/targeted/ && rm -rf /var/* &&\
     ostree container commit
