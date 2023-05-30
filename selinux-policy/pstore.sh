@@ -3,7 +3,6 @@
 set -eux
 set -o pipefail
 
-systemctl log-level info
 
 if systemd-detect-virt -cq; then
     echo "Running in a container, skipping the systemd-pstore test..."
