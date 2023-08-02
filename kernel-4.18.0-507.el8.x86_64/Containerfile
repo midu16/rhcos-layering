@@ -1,0 +1,17 @@
+# Using a 4.12.21 image
+# export OCP_VERSION="4.12.21"
+# curl -s https://mirror.openshift.com/pub/openshift-v4/clients/ocp/$OCP_VERSION/release.txt | grep -m1 'rhel-coreos-8' | awk -F ' ' '{print $2}'
+ARG rhel_coreos_release
+FROM ${rhel_coreos_release}
+RUN rpm-ostree cliwrap install-to-root /
+# Env
+ENV KERNEL_RPM="https://people.redhat.com/midu/.kernel-4.18.0-507.el8.x86_64/kernel-4.18.0-507.el8.x86_64.rpm \
+    https://people.redhat.com/midu/.kernel-4.18.0-507.el8.x86_64/kernel-core-4.18.0-507.el8.x86_64.rpm \
+    https://people.redhat.com/midu/.kernel-4.18.0-507.el8.x86_64/kernel-modules-4.18.0-507.el8.x86_64.rpm \
+    https://people.redhat.com/midu/.kernel-4.18.0-507.el8.x86_64/kernel-modules-extra-4.18.0-507.el8.x86_64.rpm \
+    https://people.redhat.com/midu/.kernel-4.18.0-507.el8.x86_64/kernel-headers-4.18.0-507.el8.x86_64.rpm"
+# Install hotfix rpm
+RUN rpm-ostree override replace ${KERNEL_RPM} && \
+    rpm-ostree cleanup -m && \
+    cd /usr/lib/modules/4.18.0-507.el8.x86_64/ && sed -i 's/\/boot\///g' .vmlinuz.hmac && \
+    ostree container commit
