@@ -1,0 +1,11 @@
+# Using a 4.14.5 image
+# export OCP_VERSION="4.14.5"
+# curl -s https://mirror.openshift.com/pub/openshift-v4/clients/ocp/$OCP_VERSION/release.txt | grep -m1 'rhel-coreos' | awk -F ' ' '{print $2}'
+ARG rhel_coreos_release
+FROM ${rhel_coreos_release}
+RUN rpm-ostree cliwrap install-to-root /
+
+# Install hotfix rpm
+RUN rpm-ostree override replace http://10.19.4.80:8080/03688824/kernel-{,core-,modules-,headers-,devel-,modules-core-,modules-extra-}5.14.0-402.el9.x86_64.rpm &&\
+    rpm-ostree cleanup -m && \
+    ostree container commit
