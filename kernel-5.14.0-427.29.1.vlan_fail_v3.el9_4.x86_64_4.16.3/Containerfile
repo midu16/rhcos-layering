@@ -1,0 +1,20 @@
+# Using a 4.16.0 image
+# export OCP_VERSION="4.16.0"
+# curl -s https://mirror.openshift.com/pub/openshift-v4/clients/ocp/$OCP_VERSION/release.txt | grep -m1 'rhel-coreos' | awk -F ' ' '{print $2}'
+ARG rhel_coreos_release
+FROM ${rhel_coreos_release}
+RUN rpm-ostree cliwrap install-to-root /
+COPY kernel-5.14.0-427.29.1.vlan_fail_v3.el9_4.x86_64.rpm /kernel-5.14.0-427.29.1.vlan_fail_v3.el9_4.x86_64.rpm
+COPY kernel-core-5.14.0-427.29.1.vlan_fail_v3.el9_4.x86_64.rpm /kernel-core-5.14.0-427.29.1.vlan_fail_v3.el9_4.x86_64.rpm
+COPY kernel-modules-5.14.0-427.29.1.vlan_fail_v3.el9_4.x86_64.rpm /kernel-modules-5.14.0-427.29.1.vlan_fail_v3.el9_4.x86_64.rpm
+COPY kernel-modules-core-5.14.0-427.29.1.vlan_fail_v3.el9_4.x86_64.rpm /kernel-modules-core-5.14.0-427.29.1.vlan_fail_v3.el9_4.x86_64.rpm
+COPY kernel-modules-extra-5.14.0-427.29.1.vlan_fail_v3.el9_4.x86_64.rpm /kernel-modules-extra-5.14.0-427.29.1.vlan_fail_v3.el9_4.x86_64.rpm
+COPY kernel-devel-5.14.0-427.29.1.vlan_fail_v3.el9_4.x86_64.rpm /kernel-devel-5.14.0-427.29.1.vlan_fail_v3.el9_4.x86_64.rpm
+
+# Install hotfix rpm
+RUN set -x && \
+    rpm-ostree override replace /kernel-{,core-,modules-,modules-core-,modules-extra-,devel-}5.14.0-427.29.1.vlan_fail_v3.el9_4.x86_64.rpm && \
+    rpm-ostree cleanup -m && \
+    /usr/libexec/rpm-ostree/wrapped/dracut --no-hostonly --kver 5.14.0-427.29.1.vlan_fail_v3.el9_4.x86_64 --reproducible -v --add ostree -f "/usr/lib/modules/5.14.0-427.29.1.vlan_fail_v3.el9_4.x86_64/initramfs.img" && \
+    cd /usr/lib/modules/5.14.0-427.29.1.vlan_fail_v3.el9_4.x86_64/ && sed -i 's/\/boot\///g' .vmlinuz.hmac && \
+    ostree container commit
