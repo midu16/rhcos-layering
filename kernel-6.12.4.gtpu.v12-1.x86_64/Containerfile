@@ -1,0 +1,18 @@
+# Using a 4.16.37 image
+# export OCP_VERSION="4.16.37"
+# curl -s https://mirror.openshift.com/pub/openshift-v4/clients/ocp/$OCP_VERSION/release.txt | grep -m1 'rhel-coreos' | awk -F ' ' '{print $2}'
+ARG rhel_coreos_release
+FROM ${rhel_coreos_release}
+# RUN rpm-ostree cliwrap install-to-root / ## Removed due to https://issues.redhat.com/browse/OCPBUGS-37243
+
+ENV KERNEL_RPM="https://people.redhat.com/midu/kernel-6.12.4.gtpu.v12-1.x86_64/kernel-6.12.4.gtpu.v12-1.x86_64.rpm \
+	https://people.redhat.com/midu/kernel-6.12.4.gtpu.v12-1.x86_64/kernel-devel-6.12.4.gtpu.v12-1.x86_64.rpm \
+	https://people.redhat.com/midu/kernel-6.12.4.gtpu.v12-1.x86_64/kernel-headers-6.12.4.gtpu.v12-1.x86_64.rpm"
+
+# Install hotfix rpm
+RUN rpm-ostree override replace ${KERNEL_RPM} &&\
+    rpm-ostree cleanup -m && \
+    /usr/libexec/rpm-ostree/wrapped/dracut --no-hostonly --kver 6.12.4.gtpu.v12-1.x86_64 --reproducible -v --add ostree -f "/usr/lib/modules/6.12.4.gtpu.v12-1.x86_64/initramfs.img" && \
+    cd /usr/lib/modules/6.12.4.gtpu.v12-1.x86_64/ && sed -i 's/\/boot\///g' .vmlinuz.hmac && \
+    ostree container commit
+
