@@ -10,12 +10,7 @@ ENV KERNEL_RPM="https://people.redhat.com/midu/kernel-6.12.4.gtpu.v12-1.x86_64/k
 	https://people.redhat.com/midu/kernel-6.12.4.gtpu.v12-1.x86_64/kernel-headers-6.12.4.gtpu.v12-1.x86_64.rpm"
 
 # Install hotfix rpm
-RUN rpm-ostree override replace ${KERNEL_RPM} && \
-    rpm-ostree cleanup -m && \
-    ln -s /usr/lib/modules /lib/modules && \
-    depmod 6.12.4.gtpu.v12 && \
-    dracut --no-hostonly --kver 6.12.4.gtpu.v12 --reproducible -v --add ostree -f "/usr/lib/modules/6.12.4.gtpu.v12/initramfs.img" && \
-    cd /usr/lib/modules/6.12.4.gtpu.v12/ && \
-    [ -f .vmlinuz.hmac ] && sed -i 's/\/boot\///g' .vmlinuz.hmac || echo ".vmlinuz.hmac not found, skipping..." && \
+RUN rpm-ostree override replace \
+        kernel-{,devel-,headers-}6.12.4.gtpu.v12-1.x86_64.rpm && \
     ostree container commit
 
