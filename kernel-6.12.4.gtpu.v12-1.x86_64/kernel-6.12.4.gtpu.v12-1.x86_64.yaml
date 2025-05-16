@@ -1,0 +1,9 @@
+---
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: master 
+  name: kernel-6.12.4-0.test.el9_7
+spec:
+  osImageURL: quay.io/midu/kernel-6.12.4-0.test.el9_7.x86_64:4.16.37 

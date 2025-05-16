@@ -5,12 +5,15 @@ ARG rhel_coreos_release
 FROM ${rhel_coreos_release}
 # RUN rpm-ostree cliwrap install-to-root / ## Removed due to https://issues.redhat.com/browse/OCPBUGS-37243
 
-ENV KERNEL_RPM="https://people.redhat.com/midu/kernel-6.12.4.gtpu.v12-1.x86_64/kernel-6.12.4.gtpu.v12-1.x86_64.rpm \
-	https://people.redhat.com/midu/kernel-6.12.4.gtpu.v12-1.x86_64/kernel-devel-6.12.4.gtpu.v12-1.x86_64.rpm \
-	https://people.redhat.com/midu/kernel-6.12.4.gtpu.v12-1.x86_64/kernel-headers-6.12.4.gtpu.v12-1.x86_64.rpm"
+# Download kernel RPMs
+RUN curl -k -O https://people.redhat.com/midu/kernel-6.12.4-0.test.el9_7.x86_64.rpm/kernel-6.12.4-0.test.el9_7.x86_64.rpm && \
+	curl -k -O https://people.redhat.com/midu/kernel-6.12.4-0.test.el9_7.x86_64.rpm/kernel-core-6.12.4-0.test.el9_7.x86_64.rpm && \
+	curl -k -O https://people.redhat.com/midu/kernel-6.12.4-0.test.el9_7.x86_64.rpm/kernel-modules-6.12.4-0.test.el9_7.x86_64.rpm && \
+    curl -k -O https://people.redhat.com/midu/kernel-6.12.4-0.test.el9_7.x86_64.rpm/kernel-modules-core-6.12.4-0.test.el9_7.x86_64.rpm && \
+    curl -k -O https://people.redhat.com/midu/kernel-6.12.4-0.test.el9_7.x86_64.rpm/kernel-modules-extra-6.12.4-0.test.el9_7.x86_64.rpm
 
 # Install hotfix rpm
 RUN rpm-ostree override replace \
-        kernel-{,devel-,headers-}6.12.4.gtpu.v12-1.x86_64.rpm && \
+        kernel-{,core-,modules-,modules-core-,modules-extra-}6.12.4-0.test.el9_7.x86_64.rpm && \
     ostree container commit
 
