@@ -8,6 +8,7 @@ How to build the layer-kernel:
 ```bash
 ./build_ocp_image.sh /path/to/pull-secret.json 4.16.37 kernel-6.12.4-0.test.el9_7.x86_64
 ```
+> **NOTE:** The build steps are optional since this can be made available from `quay.io/midu/kernel-6.12.4-0.test.el9_7.x86_64:4.16.37` for OpenShift 4.16.37 testings
 
 How to apply the layer-kernel:
 
