@@ -14,7 +14,9 @@ RUN curl -k -O https://download.eng.brq.redhat.com/brewroot/packages/kernel/5.14
     curl -k -O https://download.eng.brq.redhat.com/brewroot/packages/kernel/5.14.0/427.61.1.el9_4/x86_64/kernel-modules-core-5.14.0-427.61.1.el9_4.x86_64.rpm && \
     curl -k -O https://download.eng.brq.redhat.com/brewroot/packages/kernel/5.14.0/427.61.1.el9_4/x86_64/kernel-modules-extra-5.14.0-427.61.1.el9_4.x86_64.rpm 
 
-# Install
+# Install the kernel RPMs and apply the https://issues.redhat.com/browse/OCPBUGS-30149 WA than commit the changes
+# to the ostree repo.
 RUN rpm-ostree override replace \
         kernel-{,core-,modules-,modules-core-,modules-extra-}5.14.0-427.61.1.el9_4.x86_64.rpm && \
+    mv /usr/libexec/rpm-ostree/wrapped/rpm /usr/bin/rpm && \
     ostree container commit
