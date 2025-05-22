@@ -1,0 +1,12 @@
+# Using a 4.14.43 image
+ARG rhel_coreos_release
+FROM ${rhel_coreos_release}
+
+# Download kernel RPMs
+RUN curl -k -O https://people.redhat.com/midu/crun-1.17-2.rhaos4.14.el9.x86_64/crun-1.17-2.rhaos4.14.el9.x86_64.rpm
+
+# Install the kernel RPMs and apply the https://issues.redhat.com/browse/OCPBUGS-30149 WA than commit the changes
+# to the ostree repo.
+RUN rpm-ostree override replace /crun-1.17-2.rhaos4.14.el9.x86_64.rpm && \
+    rpm-ostree cleanup -m && \
+    ostree container commit

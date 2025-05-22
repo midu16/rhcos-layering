@@ -1,0 +1,8 @@
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: master 
+  name: crun-patch
+spec:
+  osImageURL: quay.io/midu/crun-1.17-2.rhaos4.14.el9.x86_64:4.14.43
